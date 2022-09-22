@@ -6,7 +6,7 @@ export class ColumnFilter extends Stage {
         this.outputColumns = outputColumns;
     }
 
-    * process(item: Record<string, any>): IterableIterator<Record<string, any>> {
+    async* process(item: Record<string, any>): AsyncIterable<Record<string, any>> {
         yield item;
     };
 }

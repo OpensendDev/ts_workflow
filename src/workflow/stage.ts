@@ -5,9 +5,9 @@ export abstract class Stage extends BaseStage {
         super(name);
     }
 
-    * run(source: IterableIterator<Record<string, any>>): IterableIterator<Record<string, any>> {
-        for (let sourceValue of source) {
-            for (let processedItemValue of this.process(this.getInputItem(sourceValue))) {
+    async* run(source: AsyncIterable<Record<string, any>>): AsyncIterable<Record<string, any>> {
+        for await (let sourceValue of source) {
+            for await (let processedItemValue of this.process(this.getInputItem(sourceValue))) {
                 yield this.getOutputData(processedItemValue)
             }
         }

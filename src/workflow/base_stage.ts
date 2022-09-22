@@ -28,7 +28,7 @@ export abstract class BaseStage {
 
     };
 
-    abstract process(item: Record<string, any>): IterableIterator<Record<string, any>>;
+    abstract process(item: Record<string, any>): AsyncIterable<Record<string, any>>;
 
-    abstract run(source: IterableIterator<Record<string, any>>): IterableIterator<Record<string, any>>;
+    abstract run(source: AsyncIterable<Record<string, any>>): AsyncIterable<Record<string, any>>;
 }

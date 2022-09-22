@@ -28,6 +28,7 @@ Put these above stuffs together to create a complete data processing workflow
 ### Test scripts
 ```bash
 npx ts-node src/tests/simple_log_consumer.ts
+npx ts-node src/tests/read_write_csv.ts
 ```
 
 ### Usage example

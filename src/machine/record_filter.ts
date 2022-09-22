@@ -8,7 +8,7 @@ export class RecordFilter extends Stage {
         this.validator = validator;
     }
 
-    * process(item: Record<string, any>): IterableIterator<Record<string, any>> {
+    async* process(item: Record<string, any>): AsyncIterable<Record<string, any>> {
         if (this.validator(item)) {
             yield item;
         }

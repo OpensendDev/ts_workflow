@@ -10,13 +10,13 @@ export class Pipeline extends BaseStage {
         this.name = `${this.name}:${name ? name : stage.name}`;
     }
 
-    * process(item: Record<string, any>): IterableIterator<Record<string, any>> {
+    async * process(item: Record<string, any>): AsyncIterable<Record<string, any>> {
     };
 
-    * run(source: IterableIterator<Record<string, any>>): IterableIterator<Record<string, any>> {
+    async * run(source: AsyncIterable<Record<string, any>>): AsyncIterable<Record<string, any>> {
         let sourceIter = source;
-        for (let stage of this.stages) {
-            sourceIter = stage.run(sourceIter);
+        for await (let stage of this.stages) {
+            sourceIter = await stage.run(sourceIter);
         }
         yield* sourceIter;
     };

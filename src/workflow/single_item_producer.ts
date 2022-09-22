@@ -8,7 +8,7 @@ export class SingleItemProducer extends Producer {
         this.item = item;
     }
 
-    * toStream(): IterableIterator<Record<string, any>> {
+    async * toStream(): AsyncIterable<Record<string, any>> {
         yield this.item;
     }
 }

@@ -19,6 +19,6 @@ export abstract class Task {
         let pipeline = this.getPipeline(),
             producer = this.getProducer(),
             consumer = this.getConsumer();
-        consumer.consume(pipeline.run(producer.stream));
+        consumer.consume(pipeline.run(producer.stream)).then(() => {console.log('Done');});
     }
 }

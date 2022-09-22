@@ -5,9 +5,9 @@ export abstract class Producer {
         this.name = name;
     }
 
-    get stream(): IterableIterator<Record<string, any>> {
+    get stream(): AsyncIterable<Record<string, any>> {
         return this.toStream();
     }
 
-    abstract toStream(): IterableIterator<Record<string, any>>;
+    abstract toStream(): AsyncIterable<Record<string, any>>;
 }

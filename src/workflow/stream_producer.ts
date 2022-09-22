@@ -1,14 +1,14 @@
 import {Producer} from "./producer";
 
 export class StreamProducer extends Producer {
-    protected source: IterableIterator<Record<string, any>>;
+    protected source: AsyncIterable<Record<string, any>>;
 
-    constructor(source: IterableIterator<Record<string, any>>, name: string = 'StreamProducer') {
+    constructor(source: AsyncIterable<Record<string, any>>, name: string = 'StreamProducer') {
         super(name);
         this.source = source;
     }
 
-    * toStream(): IterableIterator<Record<string, any>> {
+    async* toStream(): AsyncIterable<Record<string, any>> {
         yield* this.source;
     }
 }
