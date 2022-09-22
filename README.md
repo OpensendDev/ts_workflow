@@ -34,17 +34,17 @@ npx ts-node src/tests/read_write_csv.ts
 ### Usage example
 
 ```typescript
-import {ColumnFilter} from "./column_filter";
-import {Consumer} from "./consumer";
-import {Pipeline} from "./pipeline";
-import {Producer} from "./producer";
-import {RecordFilter} from "./record_filter";
-import {Stage} from "./stage";
-import {StreamProducer} from "./stream_producer";
-import {Task} from "./task";
+import {ColumnFilter} from "../machine/column_filter";
+import {Consumer} from "../workflow/consumer";
+import {Pipeline} from "../workflow/pipeline";
+import {Producer} from "../workflow/producer";
+import {RecordFilter} from "../machine/record_filter";
+import {Stage} from "../workflow/stage";
+import {StreamProducer} from "../workflow/stream_producer";
+import {Task} from "../workflow/task";
 
 
-function* generateStream(): IterableIterator<Record<string, any>> {
+async function* generateStream(): AsyncIterable<Record<string, any>> {
     for (let i = 0; i < 10; i++) {
         yield {
             'operand1': 2 * i,
@@ -63,7 +63,7 @@ function operandsNotTen(item: Record<string, number>): boolean {
 }
 
 class SumStage extends Stage {
-    * process(item: Record<string, any>): IterableIterator<Record<string, any>> {
+    async* process(item: Record<string, any>): AsyncIterable<Record<string, any>> {
         yield {
             'sum': item.operand1 + item.operand2,
         };
@@ -72,7 +72,7 @@ class SumStage extends Stage {
 
 
 class ConsoleLogConsumer extends Consumer {
-    process(item: Record<string, any>): void {
+    async process(item: Record<string, any>): Promise<void> {
         console.log(`I consumed ${JSON.stringify(item)}`);
     }
 }
