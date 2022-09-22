@@ -1,4 +1,4 @@
-import {Stage} from "./stage";
+import {Stage} from "../workflow/stage";
 
 export class RecordFilter extends Stage {
     protected validator: CallableFunction;

@@ -1,11 +1,11 @@
-import {ColumnFilter} from "./column_filter";
-import {Consumer} from "./consumer";
-import {Pipeline} from "./pipeline";
-import {Producer} from "./producer";
-import {RecordFilter} from "./record_filter";
-import {Stage} from "./stage";
-import {StreamProducer} from "./stream_producer";
-import {Task} from "./task";
+import {ColumnFilter} from "../machine/column_filter";
+import {Consumer} from "../workflow/consumer";
+import {Pipeline} from "../workflow/pipeline";
+import {Producer} from "../workflow/producer";
+import {RecordFilter} from "../machine/record_filter";
+import {Stage} from "../workflow/stage";
+import {StreamProducer} from "../workflow/stream_producer";
+import {Task} from "../workflow/task";
 
 
 function* generateStream(): IterableIterator<Record<string, any>> {

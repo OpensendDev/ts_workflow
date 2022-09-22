@@ -25,10 +25,9 @@ Put these above stuffs together to create a complete data processing workflow
 - Job: receives config from terminal
 - Task: config is set while initializing the object.
 # Examples
-### Test script
+### Test scripts
 ```bash
-# Copy test.ts to parent directory
-npx ts-node test.ts
+npx ts-node src/tests/simple_log_consumer.ts
 ```
 
 ### Usage example
