@@ -1,13 +1,22 @@
-export class Consumer {
-    public name: string = 'Consumer';
+export abstract class Consumer {
+    name: string;
+    protected requiredColumns: Array<string> = [];
 
-    process(item: string): void {};
-    consume(source: IterableIterator<string>): void {
-        let sourceIter = source.next();
-        while(sourceIter.done == false) {
-            this.process(sourceIter.value);
-            sourceIter = source.next();
+    constructor(name: string = 'Consumer') {
+        this.name = name;
+    }
+
+    abstract process(item: Record<string, any>): void;
+
+    consume(source: IterableIterator<Record<string, any>>): void {
+        for (let sourceValue of source) {
+            if (
+                this.requiredColumns.length > 0 &&
+                this.requiredColumns.some((column) => Object.keys(sourceValue).indexOf(column) != -1)
+            ) {
+                throw new Error(`Invalid data ${sourceValue}. Required columns: ${this.requiredColumns}`);
+            }
+            this.process(sourceValue);
         }
-
     }
 }

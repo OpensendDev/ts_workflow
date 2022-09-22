@@ -1,20 +1,15 @@
 import {BaseStage} from "./base_stage";
 
-export abstract class Stage extends BaseStage{
-    public name: string = 'Stage';
+export abstract class Stage extends BaseStage {
+    constructor(name: string = 'Stage') {
+        super(name);
+    }
 
-
-    // abstract setUp(item: string): IterableIterator<string>;
-
-    abstract process(item: string): IterableIterator<string>;
-
-    // abstract tearDown(item: string): IterableIterator<string>;
-
-    *run(source: IterableIterator<string>): IterableIterator<string> {
-        let sourceIter = source.next();
-        while(sourceIter.done == false) {
-            yield* this.process(sourceIter.value);
-            sourceIter = source.next();
+    * run(source: IterableIterator<Record<string, any>>): IterableIterator<Record<string, any>> {
+        for (let sourceValue of source) {
+            for (let processedItemValue of this.process(this.getInputItem(sourceValue))) {
+                yield this.getOutputData(processedItemValue)
+            }
         }
     };
 }

@@ -1,10 +1,13 @@
+export abstract class Producer {
+    name: string;
 
-export class Producer {
-    public name: string = 'Producer';
+    protected constructor(name: string = 'Producer') {
+        this.name = name;
+    }
 
-    get stream(): IterableIterator<string> {
+    get stream(): IterableIterator<Record<string, any>> {
         return this.toStream();
     }
 
-    *toStream(): IterableIterator<string> {}
+    abstract toStream(): IterableIterator<Record<string, any>>;
 }

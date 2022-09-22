@@ -1,10 +1,13 @@
+import {Consumer} from "./consumer";
 import {Pipeline} from "./pipeline";
 import {Producer} from "./producer";
-import {Consumer} from "./consumer";
-
 
 export abstract class Task {
-    public name: string = 'Consumer';
+    name: string;
+
+    constructor(name: string = 'Task') {
+        this.name = name;
+    }
 
     abstract getPipeline(): Pipeline;
 
@@ -13,7 +16,9 @@ export abstract class Task {
     abstract getConsumer(): Consumer;
 
     main(): void {
-        let pipeline = this.getPipeline(), producer = this.getProducer(), consumer = this.getConsumer();
+        let pipeline = this.getPipeline(),
+            producer = this.getProducer(),
+            consumer = this.getConsumer();
         consumer.consume(pipeline.run(producer.stream));
     }
 }
