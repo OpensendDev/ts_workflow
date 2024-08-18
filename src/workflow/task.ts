@@ -1,6 +1,6 @@
-import {Consumer} from "./consumer";
-import {Pipeline} from "./pipeline";
-import {Producer} from "./producer";
+import { Consumer } from "./consumer";
+import { Pipeline } from "./pipeline";
+import { Producer } from "./producer";
 
 export abstract class Task {
     name: string;
@@ -15,10 +15,10 @@ export abstract class Task {
 
     abstract getConsumer(): Consumer;
 
-    main(): void {
+    async main(): Promise<void> {
         let pipeline = this.getPipeline(),
             producer = this.getProducer(),
             consumer = this.getConsumer();
-        consumer.consume(pipeline.run(producer.stream)).then(() => {console.log('Done');});
+        await consumer.consume(pipeline.run(producer.stream)).then(() => { console.log('Done'); });
     }
 }
