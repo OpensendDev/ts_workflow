@@ -33,13 +33,13 @@ export interface ISendMailMilestoneSetting {
   source: AsyncIterable<Record<string, any>>
 }
 
-async function* generateClientEmail(name: string, thread: number): AsyncIterable<Record<string, any>> {
+async function* generateClientEmail(name: string, thread: number, total: number): AsyncIterable<Record<string, any>> {
   const clienService = new ClientService(db);
   const clients = await clienService.all();
   for (let index = 0; index < clients.length; index++) {
     const client = clients[index];
     const data = {}
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < total; index++) {
       data[name] = {
         clientId: client.client_id,
         email: `${client.name}-${thread}-${index}@${client.domain}`
@@ -295,7 +295,7 @@ threads.map((thread) => {
   const setting: ISendMailMilestoneSetting = {
     milestones: [1, 100, 1000, 10000, 100000, 1000000],
     db,
-    source: generateClientEmail(name, thread)
+    source: generateClientEmail(name, thread, 400000)
   }
   new SendMailMilestone(name, setting).main();
 })
