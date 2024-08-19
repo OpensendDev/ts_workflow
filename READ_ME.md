@@ -76,7 +76,7 @@ CREATE TABLE email_deliveries (
 
 ```
 CREATE TABLE dcr_dmail_deliveries (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,,
     client_id INT UNIQUE,
     total INT,
     FOREIGN KEY (client_id) REFERENCES clients(id)
@@ -91,7 +91,7 @@ CREATE TABLE dcr_dmail_deliveries (
 - send_at (when the email was sent)
 ```
 CREATE TABLE milestones (
-    id INT,
+    id SERIAL PRIMARY KEY,,
     client_id INT,
     value INT,
     email_sent BOOLEAN DEFAULT FALSE,
