@@ -16,6 +16,7 @@ import { MemberRole } from "../members/enums";
 import { IMailPayload, sendEmail } from "../common/emailer";
 import logger from "../logger";
 import { IMember } from "../members/interfaces";
+import { IDCREmailDelivery } from "../dcr_email_deliveries/interfaces";
 
 export interface IMessageData {
   clientId: string;
@@ -99,6 +100,7 @@ class GetClientInfoStage extends Stage {
 }
 
 class InitDCRDeliveryEmailStage extends Stage {
+  private dcrEmailDeliveries: { [key: string]: IDCREmailDelivery } = {};
   constructor(private dcrEmailDeliveryServices: DCREmailDeliveryServices, private key: string) {
     super();
   }
@@ -106,7 +108,10 @@ class InitDCRDeliveryEmailStage extends Stage {
     const data: IMessageData = item['data'];
     logger.info('InitDCRDeliveryEmailStage', this.key, data);
     try {
-      await this.dcrEmailDeliveryServices.addNew(data.client.client_id);
+      if (!this.dcrEmailDeliveries[data.clientId]) {
+        this.dcrEmailDeliveries[data.clientId] = await this.dcrEmailDeliveryServices.addNew(data.client.client_id);
+      }
+
       yield {
         'data': data,
       };
